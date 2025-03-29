@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jyothy Labs | Home</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        
+        /* Navigation Bar */
+        nav {
+            background-color: #004085;
+            padding: 15px 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s ease-in-out;
+        }
+        nav ul li a:hover {
+            color: #ffc107;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #004085, #0056b3);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: 32px;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* Products Section */
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            margin-top: 20px;
+        }
+        .product-card {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .product-card img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .product-card h3 {
+            margin: 10px 0;
+            color: #004085;
+        }
+        .product-card p {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="../add">Add Products</a></li>
+            <li><a href="../items">View Products</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Welcome to Jyothy Labs</h1>
+            <p>Delivering trusted household and personal care products for a better life.</p>
+        </div>
+
+        <!-- About Section -->
+        <div class="content">
+            <p>Jyothy Labs is a leading FMCG company, offering a range of household and personal care products that cater to millions of customers. Our brands include Ujala, Henko, Margo, Exo, and Maxo, ensuring quality and trust in every product.</p>
+        </div>
+
+        <!-- Products Section -->
+        <h2>Our Products</h2>
+        <div class="products">
+            <div class="product-card">
+                <img src="../static/YouTube_Thumb_-570X410-copy.jpg" alt="Ujala">
+                <h3>Ujala</h3>
+                <p>The trusted fabric whitener for bright and dazzling clothes.</p>
+            </div>
+            <div class="product-card">
+                <img src="../static/3584-22-Henko-website-banners-Final_700-X-450.jpg" alt="Henko">
+                <h3>Henko</h3>
+                <p>Premium detergent that removes stains while being gentle on fabric.</p>
+            </div>
+            <div class="product-card">
+                <img src="../static/exo-slider-banner.jpg" alt="Exo">
+                <h3>Exo</h3>
+                <p>Anti-bacterial dishwashing solutions for sparkling clean utensils.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

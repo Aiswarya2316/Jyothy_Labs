@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        nav {
+            background-color: #004085;
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 8px 12px;
+            background-color:rgb(11, 130, 61);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #004085;
+            color: white;
+        }
+    </style>
+    <script>
+        function searchItem() {
+            const query = document.getElementById("searchInput").value;
+            fetch(`/search/?query=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById("tableBody");
+                    tableBody.innerHTML = "";
+                    if (data.items.length > 0) {
+                        data.items.forEach(item => {
+                            let row = `<tr>
+                                <td>${item.name}</td>
+                                <td>${item.rack}</td>
+                                <td>${item.quantity}</td>
+                                <td>${item.stock}</td>
+                            </tr>`;
+                            tableBody.innerHTML += row;
+                        });
+                    } else {
+                        tableBody.innerHTML = `<tr><td colspan="4" style="color:red;">No items found</td></tr>`;
+                    }
+                })
+                .catch(error => console.error("Error fetching data:", error));
+        }
+    </script>
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="../">Home</a></li>
+            <li><a href="../add">Add Products</a></li>
+            <li><a href="../items">View Products</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Item List</h2>
+
+        <!-- Search Bar -->
+        <input type="text" id="searchInput" placeholder="Search item...">
+        <button onclick="searchItem()">Search</button>
+
+        <!-- Items Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Rack</th>
+                    <th>Quantity</th>
+                    <th>Stock</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.rack.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.stock }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <br>
+        {% comment %} <a href="{% url 'add_item' %}">Add New Item</a> {% endcomment %}
+    </div>
+
+</body>
+</html>
