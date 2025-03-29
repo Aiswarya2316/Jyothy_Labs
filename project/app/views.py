@@ -43,3 +43,17 @@ class SearchItemView(View):
             results = []
 
         return JsonResponse({'items': results})
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+from .models import Item
+
+@csrf_exempt
+def delete_item(request, item_id):
+    if request.method == "DELETE":
+        item = get_object_or_404(Item, id=item_id)
+        item.delete()
+        return JsonResponse({"success": True})
+    return JsonResponse({"success": False}, status=400)
+

@@ -51,7 +51,7 @@
         }
         button {
             padding: 8px 12px;
-            background-color:rgb(11, 130, 61);
+            background-color: rgb(11, 130, 61);
             color: white;
             border: none;
             border-radius: 5px;
@@ -59,6 +59,12 @@
         }
         button:hover {
             background-color: #0056b3;
+        }
+        .delete-btn {
+            background-color: red;
+        }
+        .delete-btn:hover {
+            background-color: darkred;
         }
         table {
             width: 100%;
@@ -90,19 +96,45 @@
                                 <td>${item.rack}</td>
                                 <td>${item.quantity}</td>
                                 <td>${item.stock}</td>
+                                <td><button class='delete-btn' onclick='deleteItem(${item.id})'>Delete</button></td>
                             </tr>`;
                             tableBody.innerHTML += row;
                         });
                     } else {
-                        tableBody.innerHTML = `<tr><td colspan="4" style="color:red;">No items found</td></tr>`;
+                        tableBody.innerHTML = `<tr><td colspan="5" style="color:red;">No items found</td></tr>`;
                     }
                 })
                 .catch(error => console.error("Error fetching data:", error));
         }
+
+        function deleteItem(itemId) {
+            if (confirm("Are you sure you want to delete this item?")) {
+                fetch(`/delete/${itemId}/`, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRFToken": getCSRFToken(),
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Item deleted successfully");
+                        location.reload();
+                    } else {
+                        alert("Error deleting item");
+                    }
+                })
+                .catch(error => console.error("Error deleting item:", error));
+            }
+        }
+        
+        function getCSRFToken() {
+            return document.cookie.split('; ').find(row => row.startsWith('csrftoken'))?.split('=')[1];
+        }
     </script>
 </head>
 <body>
-
     <nav>
         <ul>
             <li><a href="../">Home</a></li>
@@ -113,12 +145,9 @@
 
     <div class="container">
         <h2>Item List</h2>
-
-        <!-- Search Bar -->
         <input type="text" id="searchInput" placeholder="Search item...">
         <button onclick="searchItem()">Search</button>
 
-        <!-- Items Table -->
         <table>
             <thead>
                 <tr>
@@ -126,6 +155,7 @@
                     <th>Rack</th>
                     <th>Quantity</th>
                     <th>Stock</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -135,14 +165,11 @@
                         <td>{{ item.rack.name }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.stock }}</td>
+                        <td><button class="delete-btn" onclick="deleteItem({{ item.id }})">Delete</button></td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-
-        <br>
-        {% comment %} <a href="{% url 'add_item' %}">Add New Item</a> {% endcomment %}
     </div>
-
 </body>
 </html>
