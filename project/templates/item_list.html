@@ -20,9 +20,10 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            display: flex;
+            justify-content: center;
         }
         nav ul li {
-            display: inline;
             margin: 0 15px;
         }
         nav ul li a {
@@ -31,7 +32,7 @@
             font-size: 18px;
         }
         .container {
-            max-width: 900px;
+            max-width: 90%;
             margin: auto;
             background: white;
             padding: 20px;
@@ -42,15 +43,21 @@
             text-align: center;
             color: #333;
         }
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
         input[type="text"] {
-            width: 70%;
+            width: 100%;
+            max-width: 400px;
             padding: 8px;
-            margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
         button {
-            padding: 8px 12px;
+            padding: 10px;
             background-color: rgb(11, 130, 61);
             color: white;
             border: none;
@@ -79,6 +86,23 @@
         th {
             background-color: #004085;
             color: white;
+        }
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            nav ul li {
+                margin-bottom: 10px;
+            }
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            input[type="text"] {
+                width: 100%;
+            }
         }
     </style>
     <script>
@@ -145,8 +169,10 @@
 
     <div class="container">
         <h2>Item List</h2>
-        <input type="text" id="searchInput" placeholder="Search item...">
-        <button onclick="searchItem()">Search</button>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search item...">
+            <button onclick="searchItem()">Search</button>
+        </div>
 
         <table>
             <thead>
